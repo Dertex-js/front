@@ -45,42 +45,71 @@ const useBoard = () => {
     }
   }, [ws, isWs])
   const handleStep = useCallback(({ rowIndex, fieldIndex }, matrix) => {
-    const normalise = (n, positive) => {
-      for (let i = 0; i < 4; i++) {
 
-      }
-       return positive
-         ? (n + 4 <= 19 ? n + 4 : n)
-         : (n - 4 >= 0 ? n - 4 : n)
-    }
-
+    const x = fieldIndex
+    const y = rowIndex
+    const startLeftX = x >= 4 ? x - 4 : 0
+    const startRightX = x >= 15 ? 19 : x + 4
+    const startTopY = y >= 4 ? y - 4 : 0
+    const startBottomY = y >= 15 ? 19 : y + 4
     const winMatrix = []
-    let row = 0
-    let col = 0
 
-    for (let i = normalise(rowIndex, false); i <= normalise(rowIndex, true); i++) {
-      for (let j = normalise(fieldIndex, false); j <= normalise(fieldIndex, true); j++) {
-        if (fieldIndex - 4 >= 0 && fieldIndex + 4 <= 19) {
-          col = 9
-        } else {
-          col = 5
-        }
-        winMatrix[row] = new Array(col).fill(matrix[i][j])
+    // matrix.forEach((row, inxRow) => {
+    //   winMatrix[inxRow] = []
+    //   row.forEach((col, inxCol) => {
+    //
+    //   })
+    // })
+
+    let counter = 0
+    for (let i = startTopY; i <= startBottomY; i++) {
+      winMatrix[counter] = []
+      let counter2 = 0
+      for (let j = startLeftX; j <= startRightX; j++) {
+        winMatrix[counter][counter2] = matrix[i][j]
+        counter2++
       }
-      // console.log(rowIndex, fieldIndex)
-      row++
+      counter++
     }
     console.log(winMatrix)
 
-    // if (ws && isWs) {
-    //   if (steps.length === 0) {
-    //     ws.send(JSON.stringify({ type: 'firstStep', payload: {field} }))
-    //   } else {
-    //     ws.send(JSON.stringify({
-    //       type: 'step', payload: {field, prevStepId: steps.slice(-1)[0]?.id}
-    //     }))
+
+
+    // const normalise = (n, positive) => {
+    //   for (let i = 0; i < 4; i++) {
+    //
     //   }
+    //    return positive
+    //      ? (n + 4 <= 19 ? n + 4 : n)
+    //      : (n - 4 >= 0 ? n - 4 : n)
     // }
+    //
+    // const winMatrix = []
+    // let row = 0
+    // let col = 0
+    //
+    // for (let i = rowIndex - 4; i <= rowIndex + 4; i++) {
+    //   for (let j = normalise(fieldIndex, false); j <= normalise(fieldIndex, true); j++) {
+    //     if (fieldIndex - 4 >= 0 && fieldIndex + 4 <= 19) {
+    //       col = 9
+    //     } else {
+    //       col = 5
+    //     }
+    //     winMatrix[row] = new Array(col).fill(matrix[i][j])
+    //   }
+    //   row++
+    // }
+    // console.log(winMatrix)
+
+    if (ws && isWs) {
+      if (steps.length === 0) {
+        ws.send(JSON.stringify({ type: 'firstStep', payload: {winMatrix} }))
+      } else {
+        ws.send(JSON.stringify({
+          type: 'step', payload: {winMatrix, prevStepId: steps.slice(-1)[0]?.id}
+        }))
+      }
+    }
   }, [ws, isWs, steps])
 
   return {map, steps, status, handleClear, handleStep}
