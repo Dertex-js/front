@@ -3,7 +3,7 @@ import {useBoard} from "../../hooks"
 import cn from 'classnames'
 
 const Board = () => {
-  const { map, handleClear, handleStep } = useBoard()
+  const { map, status, handleClear, handleStep } = useBoard()
 
   return (
     <div className={cl.container}>
@@ -23,10 +23,11 @@ const Board = () => {
               <button
                 className={cn([
                   cl.button,
-                  {[cl.disabled]: field !== ''}
+                  {[cl.disabled]: field !== ''},
+                  {[cl.finished]: status === 'finished'}
                 ])}
                 onClick={() => handleStep(index)}
-                disabled={field !== ''}
+                disabled={(field !== '')}
               >{field}</button>
             </li>
           ))}

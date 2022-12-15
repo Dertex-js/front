@@ -63,3 +63,11 @@
   border: 1px solid #34C387 !important;
   opacity: 1 !important;
 }
+
+.finished {
+  cursor: default !important;
+
+  &:hover {
+    opacity: 0.15 !important;
+  }
+}

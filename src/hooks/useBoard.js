@@ -6,6 +6,7 @@ const useBoard = () => {
 
   const [map, setMap] = useState(null)
   const [steps, setSteps] = useState([])
+  const [status, setStatus] = useState(null)
 
   useEffect(() => {
     let unsubscribe
@@ -21,6 +22,10 @@ const useBoard = () => {
         if (parsedData.payload?.steps) {
           setSteps(() => parsedData.payload.steps)
         }
+
+        if (parsedData.payload?.status) {
+          setStatus(() => parsedData.payload.status)
+        }
       } catch (e) {
         console.log(e)
       }
@@ -32,7 +37,7 @@ const useBoard = () => {
     }
 
     return unsubscribe
-  }, [ws, isWs, setSteps, setMap])
+  }, [ws, isWs, setSteps, setMap, setStatus])
 
   const handleClear = useCallback(() => {
     if (ws && isWs) {
@@ -52,7 +57,7 @@ const useBoard = () => {
     }
   }, [ws, isWs, steps])
 
-  return {map, steps, handleClear, handleStep}
+  return {map, steps, status, handleClear, handleStep}
 }
 
 export default useBoard
