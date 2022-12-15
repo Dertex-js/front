@@ -55,7 +55,6 @@ export class WS {
   }
 
   connect() {
-    console.log("conn", this.wsConnect)
     if (!this.wsConnect) {
       const tempWS = SockJsClient(SOCKET_SERVER)
 

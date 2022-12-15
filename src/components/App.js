@@ -2,19 +2,18 @@ import ConnectButton from "../UI/ConnectButton"
 import PingButton from "../UI/PingButton"
 import CloseButton from "../UI/CloseButton"
 import Board from "./Board/Board"
+import cl from './stule.module.scss'
 
 function App() {
 
   return (
-    <div>
-      <div>
-        <ConnectButton />
-        <PingButton />
-        <CloseButton />
-      </div>
-      <div>
+    <div className={cl.app}>
+      {/*<div className={cl.btnGroup}>*/}
+      {/*  <ConnectButton />*/}
+      {/*  <PingButton />*/}
+      {/*  <CloseButton />*/}
+      {/*</div>*/}
         <Board />
-      </div>
     </div>
   );
 }
