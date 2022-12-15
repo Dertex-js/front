@@ -5,7 +5,7 @@ const useBoard = () => {
   const { ws, isWs } = useWS()
 
   const [map, setMap] = useState(null)
-  const [steps, setSteps] = useState(null)
+  const [steps, setSteps] = useState([])
 
   useEffect(() => {
     let unsubscribe
@@ -36,11 +36,23 @@ const useBoard = () => {
 
   const handleClear = useCallback(() => {
     if (ws && isWs) {
-      ws.clear()
+      ws.send(JSON.stringify({ type: 'clearBoard' }))
     }
   }, [ws, isWs])
 
-  return {map, steps, handleClear}
+  const handleStep = useCallback((field) => {
+    if (ws && isWs) {
+      if (steps.length === 0) {
+        ws.send(JSON.stringify({ type: 'firstStep', payload: {field} }))
+      } else {
+        ws.send(JSON.stringify({
+          type: 'step', payload: {field, prevStepId: steps.slice(-1)[0]?.id}
+        }))
+      }
+    }
+  }, [ws, isWs, steps])
+
+  return {map, steps, handleClear, handleStep}
 }
 
 export default useBoard

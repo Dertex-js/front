@@ -1,0 +1,32 @@
+.container {
+  margin-top: 1rem;
+}
+
+.control {
+
+}
+
+.clear {
+
+}
+
+.board {
+
+  .map {
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    list-style: none;
+    width: min-content;
+    margin: 0;
+    padding: 0;
+
+    .cell {
+      display: block;
+      width: 40px;
+      height: 40px;
+      background-color: darkred;
+    }
+  }
+}
