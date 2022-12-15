@@ -24,11 +24,11 @@ const Board = () => {
                 <button
                   className={cn([
                     cl.button,
-                    // {[cl.disabled]: field !== ''},
+                    {[cl.disabled]: field !== ''},
                     {[cl.finished]: status === 'finished'}
                   ])}
                   onClick={() => handleStep({rowIndex, fieldIndex}, matrix)}
-                  // disabled={(field !== '')}
+                  disabled={(field !== '')}
                 >{field}</button>
               </li>
             ))
