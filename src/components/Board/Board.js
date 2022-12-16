@@ -8,7 +8,7 @@ const Board = () => {
   return (
     <div className={cl.container}>
       <button
-        className={cl.clear}
+        className={cl.clearBtn}
         onClick={handleClear}
       >
         Новая игра
@@ -25,10 +25,10 @@ const Board = () => {
                   className={cn([
                     cl.button,
                     {[cl.disabled]: field !== ''},
-                    {[cl.finished]: status === 'finished'}
+                    {[cl.finished]: status === 'finished' && field === ''}
                   ])}
                   onClick={() => handleStep({fieldIndex, rowIndex})}
-                  disabled={(field !== '')}
+                  disabled={(field !== '' || status === 'finished')}
                 >{field}</button>
               </li>
             ))

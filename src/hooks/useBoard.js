@@ -44,39 +44,8 @@ const useBoard = () => {
       ws.send(JSON.stringify({ type: 'clearBoard' }))
     }
   }, [ws, isWs])
+
   const handleStep = useCallback(({fieldIndex: x, rowIndex: y}) => {
-    // const startLeftX = x >= 4 ? x - 4 : 0
-    // const startRightX = x >= 15 ? 19 : x + 4
-    // const startTopY = y >= 4 ? y - 4 : 0
-    // const startBottomY = y >= 15 ? 19 : y + 4
-    // const winMatrix = []
-    // const arrY = []
-    // const arrX = []
-    // const arrLeftDiag = []
-    // const arrRightDiag = []
-    //
-    // for (let i = startTopY; i <= startBottomY; i++) {
-    //   arrY.push(map[i][x])
-    // }
-    // for (let j = startLeftX; j <= startRightX; j++) {
-    //   arrX.push(map[y][j])
-    // }
-    // for (let i = -4; i <= 4; i++) {
-    //   if (map[y + i]) {
-    //     if (map[y + i][x + i]) {
-    //       arrLeftDiag.push(map[y + i][x + i])
-    //     }
-    //   }
-    // }
-    // for (let i = -4; i <= 4; i++) {
-    //   if (map[y + i]) {
-    //     if (map[y + i][x - i]) {
-    //       arrRightDiag.push(map[y + i][x - i])
-    //     }
-    //   }
-    // }
-
-
     if (ws && isWs) {
       if (steps.length === 0) {
         ws.send(JSON.stringify({ type: 'firstStep', payload: {x, y} }))
