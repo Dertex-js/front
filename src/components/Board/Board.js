@@ -27,28 +27,12 @@ const Board = () => {
                     {[cl.disabled]: field !== ''},
                     {[cl.finished]: status === 'finished'}
                   ])}
-                  onClick={() => handleStep({rowIndex, fieldIndex}, matrix)}
+                  onClick={() => handleStep({fieldIndex, rowIndex})}
                   disabled={(field !== '')}
                 >{field}</button>
               </li>
             ))
           ))}
-          {/*{map && map.map((field, index) => (*/}
-          {/*  <li*/}
-          {/*    className={cl.cell}*/}
-          {/*    key={index}*/}
-          {/*  >*/}
-          {/*    <button*/}
-          {/*      className={cn([*/}
-          {/*        cl.button,*/}
-          {/*        {[cl.disabled]: field !== ''},*/}
-          {/*        {[cl.finished]: status === 'finished'}*/}
-          {/*      ])}*/}
-          {/*      onClick={() => handleStep(index)}*/}
-          {/*      disabled={(field !== '')}*/}
-          {/*    >{field}</button>*/}
-          {/*  </li>*/}
-          {/*))}*/}
         </ul>
       </div>
     </div>
