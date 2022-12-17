@@ -1,19 +1,36 @@
 import cl from './style.module.scss'
 import {useBoard} from "../../hooks"
 import cn from 'classnames'
+import Modal from "../../UI/Modal/Modal"
+import {useEffect, useState} from "react"
 
 const Board = () => {
-  const { map: matrix, status, handleClear, handleStep } = useBoard()
+  const { map: matrix, status, handleClear, handleStep, steps } = useBoard()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleModalClose = () => {
+    setIsModalOpen(false)
+  }
+
+  useEffect(() => {
+    status === 'finished'
+      ? setIsModalOpen(true)
+      : setIsModalOpen(false)
+  }, [status])
+
+  const winner = () => {
+    return steps.at(-1)?.id % 2 === 1 ? 'X' : 'O'
+  }
 
   return (
-    <div className={cl.container}>
-      <button
-        className={cl.clearBtn}
-        onClick={handleClear}
-      >
-        Новая игра
-      </button>
-      <div className={cl.board}>
+    <>
+      <div className={cn(cl.container, {[cl.blur]: isModalOpen})}>
+        <button
+          className={cl.clearBtn}
+          onClick={handleClear}
+        >
+          Новая игра
+        </button>
         <ul className={cl.map}>
           {matrix && matrix.map((row, rowIndex) => (
             row.map((field, fieldIndex) => (
@@ -23,9 +40,11 @@ const Board = () => {
               >
                 <button
                   className={cn([
-                    cl.button,
                     {[cl.disabled]: field !== ''},
-                    {[cl.finished]: status === 'finished' && field === ''}
+                    {[cl.finished]: status === 'finished' && field === ''},
+                    {[cl.player1]: field === 'X'},
+                    {[cl.player2]: field === 'O'},
+                    cl.button
                   ])}
                   onClick={() => handleStep({fieldIndex, rowIndex})}
                   disabled={(field !== '' || status === 'finished')}
@@ -35,8 +54,20 @@ const Board = () => {
           ))}
         </ul>
       </div>
-    </div>
-  );
-};
+      <Modal
+        isOpen={isModalOpen}
+        closeModal={handleModalClose}
+        winner={winner()}
+      >
+        <button
+          className={cl.clearBtn}
+          onClick={handleClear}
+        >
+          Новая игра
+        </button>
+      </Modal>
+    </>
+  )
+}
 
 export default Board;
