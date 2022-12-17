@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 import cn from 'classnames'
 import Logo from './images/exit.svg'
-
 import cl from './style.module.scss'
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 
@@ -26,13 +25,23 @@ const CustomModal = ({
 			<div className={cl.modalContainer}>
 				<div ref={modalContentRef} className={cl.modalContent}>
 					<div className={cl.modalHeader}>
-						<h2>{`Победили: ${winner}`}</h2>
 						<button
 							className={cl.modalExit}
 							onClick={closeModal}
 						>
 							<img src={Logo} alt="close"/>
 						</button>
+					</div>
+					<h2>Игра окончена</h2>
+					<div className={cl.winner}>
+						<span>Победитель:</span>
+						<div className={
+							cn(cl.cell,
+								{[cl.player1]: winner === 'X'},
+								{[cl.player2]: winner === 'O'}
+							)}>
+							{winner}
+						</div>
 					</div>
 					<div className={cl.modalBody}>{children}</div>
 				</div>

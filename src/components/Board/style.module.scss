@@ -12,12 +12,14 @@
 }
 
 .clearBtn {
+  cursor: pointer;
   padding: 10px 60px;
   border: 1px solid #34C387;
   border-radius: 5px;
   color: #34C387;
   background: none;
   transition: background-color .3s;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.075);
 
   &:hover {
     background-color: #E5F7F0;
@@ -42,6 +44,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 5%);
 
   .disabled {
     cursor: default;
